@@ -7,6 +7,7 @@ name = "pypi"
 gunicorn = "*"
 flask = "*"
 requests = "*"
+sklearn = "*"
 
 [dev-packages]
 
