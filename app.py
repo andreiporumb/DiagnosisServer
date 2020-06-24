@@ -42,7 +42,6 @@ def diagnose_mijlai():
     arg3 = request.args.get('arg3')
     arg4 = request.args.get('arg4')
     
-
     if request.method == 'GET':
         X = [[0,0,0,0], [0,1,0,0], [0,0,1,0],
              [0,0,0,1], [1,0,0,0], [1,0,0,1],
@@ -53,7 +52,7 @@ def diagnose_mijlai():
         clf = tree.DecisionTreeClassifier()
         clf = clf.fit(X, Y)
         Z = clf.predict([[arg1, arg2, arg3, arg4]])
-	return 'Z'
+        return '{}'.format(Z)
     else:
         return 'Unable to predict'
 
