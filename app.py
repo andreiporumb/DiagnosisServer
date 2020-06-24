@@ -53,7 +53,7 @@ def diagnose_mijlai():
         clf = tree.DecisionTreeClassifier()
         clf = clf.fit(X, Y)
         Z = clf.predict([[arg1, arg2, arg3, arg4]])
-        return 'The prediction for {}, {}, {}, {} is {}'.format(arg1, arg2, arg3, arg4, Z)
+	return Z
     else:
         return 'Unable to predict'
 
