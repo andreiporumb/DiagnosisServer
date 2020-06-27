@@ -3,9 +3,7 @@ import os
 from flask import Flask, request
 from sklearn import tree
 import json
-from flask_cors import CORS
-
-
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 CORS(app)
@@ -19,6 +17,7 @@ def query_example():
 
 
 @app.route('/diagnose-porumbescu', methods=['POST', 'GET'])
+@cross_origin()
 def diagnose_porumbescu():
     arg1 = request.args.get('arg1')
     arg2 = request.args.get('arg2')
