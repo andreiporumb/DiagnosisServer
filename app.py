@@ -17,7 +17,6 @@ def query_example():
 
 
 @app.route('/diagnose-porumbescu', methods=['POST', 'GET'])
-@cross_origin()
 def diagnose_porumbescu():
     arg1 = request.args.get('arg1')
     arg2 = request.args.get('arg2')
