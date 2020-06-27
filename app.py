@@ -13,7 +13,7 @@ def query_example():
     return '''<h1>The language value is {}</h1>'''.format(language)
 
 
-@app.route('/scikit-example', methods=['POST', 'GET'])
+@app.route('/diagnose-porumbescu', methods=['POST', 'GET'])
 def skikit_example():
     arg1 = request.args.get('arg1')
     arg2 = request.args.get('arg2')
@@ -22,16 +22,19 @@ def skikit_example():
     arg5 = request.args.get('arg5')
 
     if request.method == 'GET':
-        X = [[0, 1, 1, 0, 0], [0, 1, 2, 0, 0], [0, 1, 3, 0, 0], [0, 1, 4, 0, 0],
-             [0, 0, 0, 1, 1], [0, 0, 0, 1, 2], [0, 0, 0, 1, 3],
-             [0, 0, 0, 1, 4], [0, 0, 0, 1, 5], [0, 0, 0, 1, 6],
-             [0, 0, 0, 1, 7], [0, 0, 0, 1, 8], [1, 0, 0, 0, 0],
-             [1, 0, 1, 0, 0], [1, 1, 0, 0, 0], [0, 0, 1, 0, 0]]
-        Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        X = [[0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 1, 0]
+	     [0, 0, 1, 0, 0], [0, 0, 1, 0, 1], [0, 0, 1, 1, 1],
+	     [0, 0, 1, 0, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0],
+	     [1, 1, 0, 0, 0], [1, 2, 0, 0, 0], [2, 0, 0, 0, 0],
+	     [2, 1, 0, 0, 0], [2, 2, 0, 0, 0], [2, 2, 1, 1, 1],
+	     [3, 0, 0, 0, 0], [3, 1, 0, 0, 0], [3, 2, 0, 0, 0],
+	     [3, 0, 1, 0, 0], [3, 1, 1, 1, 0], [3, 2, 1, 0, 0],
+	     [3, 0, 1, 0, 1], [3, 1, 1, 1, 1], [3, 2, 1, 0, 1]]
+        Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
         clf = tree.DecisionTreeClassifier()
         clf = clf.fit(X, Y)
         Z = clf.predict([[arg1, arg2, arg3, arg4, arg5]])
-        return 'The prediction for {}, {}, {}, {}, {} is {}'.format(arg1, arg2, arg3, arg4, arg5, Z)
+        return '{}'.format(Z)
     else:
         return 'fac of visica'
 
