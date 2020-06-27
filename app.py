@@ -3,8 +3,11 @@ import os
 from flask import Flask, request
 from sklearn import tree
 import json
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/query-example')
@@ -13,8 +16,8 @@ def query_example():
     return '''<h1>The language value is {}</h1>'''.format(language)
 
 
-@app.route('/scikit-example', methods=['POST', 'GET'])
-def skikit_example():
+@app.route('/diagnose-porumbescu', methods=['POST', 'GET'])
+def diagnose_porumbescu():
     arg1 = request.args.get('arg1')
     arg2 = request.args.get('arg2')
     arg3 = request.args.get('arg3')
@@ -22,18 +25,43 @@ def skikit_example():
     arg5 = request.args.get('arg5')
 
     if request.method == 'GET':
-        X = [[0, 1, 1, 0, 0], [0, 1, 2, 0, 0], [0, 1, 3, 0, 0], [0, 1, 4, 0, 0],
-             [0, 0, 0, 1, 1], [0, 0, 0, 1, 2], [0, 0, 0, 1, 3],
-             [0, 0, 0, 1, 4], [0, 0, 0, 1, 5], [0, 0, 0, 1, 6],
-             [0, 0, 0, 1, 7], [0, 0, 0, 1, 8], [1, 0, 0, 0, 0],
-             [1, 0, 1, 0, 0], [1, 1, 0, 0, 0], [0, 0, 1, 0, 0]]
-        Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        X = [[0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 1, 0],
+             [0, 0, 1, 0, 0], [0, 0, 1, 1, 1],
+             [0, 0, 1, 0, 1], [1, 0, 0, 0, 0],
+             [1, 1, 0, 0, 0], [1, 2, 0, 0, 0], [2, 0, 0, 0, 0],
+             [2, 1, 0, 0, 0], [2, 2, 0, 0, 0], [2, 2, 1, 1, 1],
+             [3, 0, 0, 0, 0], [3, 1, 0, 0, 0], [3, 2, 0, 0, 0],
+             [3, 0, 1, 0, 0], [3, 1, 1, 1, 0], [3, 2, 1, 0, 0],
+             [3, 0, 1, 0, 1], [3, 1, 1, 1, 1], [3, 2, 1, 0, 1]]
+        Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
         clf = tree.DecisionTreeClassifier()
         clf = clf.fit(X, Y)
         Z = clf.predict([[arg1, arg2, arg3, arg4, arg5]])
-        return 'The prediction for {}, {}, {}, {}, {} is {}'.format(arg1, arg2, arg3, arg4, arg5, Z)
+        return '{}'.format(Z)
     else:
         return 'fac of visica'
+
+
+@app.route('/diagnose-mijlai', methods=['POST', 'GET'])
+def diagnose_mijlai():
+    arg1 = request.args.get('arg1')
+    arg2 = request.args.get('arg2')
+    arg3 = request.args.get('arg3')
+    arg4 = request.args.get('arg4')
+
+    if request.method == 'GET':
+        X = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0],
+             [0, 0, 0, 1], [1, 0, 0, 0], [1, 0, 0, 1],
+             [0, 0, 1, 1], [0, 1, 0, 1], [1, 1, 0, 0], [1, 0, 1, 0],
+             [0, 1, 1, 0], [1, 1, 1, 0], [1, 1, 0, 1], [1, 0, 1, 1],
+             [0, 1, 1, 1], [1, 1, 1, 1]]
+        Y = [1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5]
+        clf = tree.DecisionTreeClassifier()
+        clf = clf.fit(X, Y)
+        Z = clf.predict([[arg1, arg2, arg3, arg4]])
+        return '{}'.format(Z)
+    else:
+        return 'Unable to predict'
 
 
 # array[1])
@@ -75,8 +103,6 @@ def tree_example():
 
 
 @app.route('/form-example', methods=['GET', 'POST'])  # allow  both GET and POST requests
-
-
 def form_example():
     if request.method == 'POST':  # this block is only entered when the form is submitted
         language = request.form.get('language')
@@ -93,8 +119,6 @@ def form_example():
 
 
 @app.route('/json-example', methods=['POST'])  # GET r  quests will be blocked
-
-
 def json_example():
     req_data = request.get_json()
 
@@ -123,4 +147,5 @@ def objectTest():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
+
     app.run(host='0.0.0.0', port=port)
