@@ -14,7 +14,7 @@ def query_example():
 
 
 @app.route('/diagnose-porumbescu', methods=['POST', 'GET'])
-def skikit_example():
+def diagnose_porumbescu():
     arg1 = request.args.get('arg1')
     arg2 = request.args.get('arg2')
     arg3 = request.args.get('arg3')
