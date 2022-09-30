@@ -1,5 +1,5 @@
 Click==7.0
-joblib==0.14.1
+joblib==1.2.0
 numpy==1.18.1
 Pillow==7.0.0
 pyparsing==2.4.6
